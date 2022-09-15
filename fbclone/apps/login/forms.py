@@ -11,5 +11,5 @@ class PostForm(forms.ModelForm):
     class Meta:
         model = Post
         fields = "__all__"
-
-
+        widgets = {
+            'author': forms.TextInput(attrs={ 'placeholder': 'username', 'id': 'cats'} ),}

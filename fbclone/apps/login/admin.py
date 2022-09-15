@@ -5,4 +5,6 @@ class PostAdmin(admin.ModelAdmin):
 	# list_display = ('title','image','author')
 	list_display = ('title','author')
 
+
 admin.site.register(Post,PostAdmin)
+
