@@ -8,14 +8,16 @@
 </head>
 <body>
  <div class="container mt-5">
-  <h2 class="text-center alert alert-danger">You Are Login</h2>
-  <p>Your Username is : {{user}} </p>
-  <p>Your User Id is  : {{user.id}} </p>
-  
-  <a class="btn btn-warning" href="/post">Create Post</a>
-  <a class="btn btn-warning" href="{% url 'postlist' %}">Home</a>
-  <a class="btn btn-warning" href="{% url 'logout' %}">Logout</a>
-      </form>
+  <h2 class="text-center alert alert-danger">Details Page</h2>
+    
+        <h1 class="postcenter">{{Post.title}}</h1>
+        
+        <img src="{{ Post.image.url }}" width="400" height="200">
+        <h5>Author Name :-{{Post.author}}</h5>
+        <p>Description :- {{Post.description}}</p>
+        <p>{{Post.created_at}}</p>
+        <hr>
+    
  </div>
  <script src="{% static 'enroll/js/jquery.js' %}"></script>
  <script src="{% static 'enroll/js/popper.js' %}"></script>

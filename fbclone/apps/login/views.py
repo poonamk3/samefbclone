@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.views.generic.edit import CreateView
 from django.views.generic import TemplateView
 from .forms import PostForm
+from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 from .models import Post
 class IndexView(TemplateView):
@@ -28,13 +29,13 @@ class PostView(CreateView):
     model= Post
     form_class = PostForm
     template_name='enroll/post.html'
-    success_url = '/postsuccess/' 
-
-    def get_queryset(self):
-        # user = self.request.user
-        user = self.request.user.is_authenticated
-        return User.objects.filter(username=user)
-
+    # success_url = '/postsuccess/' 
+    success_url = '/postlist/'
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        self.object.author = self.request.user
+        self.object.save()
+        return super(PostView,self).form_valid(form)
 
 @method_decorator(login_required, name='dispatch')            
 class ProfileView(TemplateView):
@@ -51,8 +52,20 @@ class HomeLoginView(TemplateView):
 class PostListView(ListView):
     model = Post
     template_name='enroll/postlist.html'
-    # def get_queryset(self):
-    #     user = self.request.user
-    #     return Post.objects.filter(author=user)
+    ordering=['-created_at']
+   
+
+class MyPostView(ListView):
+    model = Post
+    template_name='enroll/postlist.html'
+    ordering=['-created_at']
+    def get_queryset(self):
+        user = self.request.user
+        return Post.objects.filter(author=user)
+
+class PostDetailView(DetailView):
+    model = Post
+    template_name='enroll/detail.html'
+    pk_url_kwarg = 'id'
 
     

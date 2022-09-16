@@ -10,6 +10,13 @@ urlpatterns = [
     path('accounts/logout/', auth_views.LogoutView.as_view(template_name='enroll/logout.html'), name='logout'),
     path('post/', views.PostView.as_view(),name="post"),
     path('postlist/', views.PostListView.as_view(),name="postlist"),
+    path('mypost/', views.MyPostView.as_view(),name="mypost"),
+    path('detail/<int:id>', views.PostDetailView.as_view(),name="mypostdeatils"),
+
+
+    
+
+    
     
     
 ]
