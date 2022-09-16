@@ -9,7 +9,9 @@ from django.views.generic import TemplateView
 from .forms import PostForm
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
+from django.views.generic.edit import UpdateView
 from .models import Post
+from django.views.generic.edit import DeleteView
 class IndexView(TemplateView):
     template_name='enroll/home.html'
 
@@ -67,5 +69,18 @@ class PostDetailView(DetailView):
     model = Post
     template_name='enroll/detail.html'
     pk_url_kwarg = 'id'
+    context_object_name = 'post'
 
+
+class UpdateView(UpdateView):
+    model = Post
+    template_name='enroll/update.html'
+    fields = ["title","image","description"]
+    success_url ="/postlist/"
+
+
+class DeleteView(DeleteView):
+    model = Post
+    template_name='enroll/delete.html'
+    success_url ="/postlist/"
     
